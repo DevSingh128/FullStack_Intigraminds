@@ -1,0 +1,23 @@
+1. Go into a folder
+cd foldername
+
+2. Create a folder
+mkdir foldername
+
+3. Create many folders
+mkdir test{1..5}
+
+
+👉 makes: test1 test2 test3 test4 test5
+
+4. Delete a folder
+rm -r foldername
+
+5. Delete with confirmation
+rm -ri foldername
+
+
+👉 asks y / n
+
+6. Delete many folders
+rm -ri test{1..5}
