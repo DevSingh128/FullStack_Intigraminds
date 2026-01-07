@@ -1,0 +1,175 @@
+1. Absolute Path vs Relative Path
+
+Absolute Path
+Starts from root directory
+Example: C:/Users/hp/test or /c/Users/hp/test
+Independent of current directory
+Always points to the same location
+
+
+Relative Path
+Starts from current directory
+Example: sub/, ../test
+Depends on current working directory
+Changes meaning if location changes
+
+2. Directory Creation (mkdir)
+mkdir test → creates a directory
+mkdir test_sub_folder → underscore allowed
+mkdir "test sub folder" → spaces require quotes
+mkdir test sub folder → creates multiple folders (test, sub, folder)
+Important
+Folder names are case-sensitive
+Error shown if folder already exists
+
+
+3. Listing Files (ls)
+ls → normal list
+ls -a → shows hidden files (starting with .)
+ls -i → shows inode numbers (unique file identifiers)
+
+
+4. Navigation (cd)
+cd foldername → move into folder
+cd .. → move one level up
+cd ~ → move to home directory
+cd - → go to previous directory
+
+
+5. Nested Directories
+mkdir -p level1/level2/level3/level4
+Creates full structure in one command
+No error if directories already exist
+
+
+6. Removing Directories (rm)
+rm -ri level1
+-r → recursive delete
+-i → asks confirmation before deleting
+Safest way to delete directories
+
+
+7. Files Creation (touch)
+touch env → normal file
+touch .env → hidden file
+touch random1.txt random2.txt → multiple files
+
+
+8. Hidden Files
+Files starting with . are hidden
+Example: .env
+Visible only with ls -a
+
+
+9. Inode Numbers
+Each file/folder has a unique inode
+Seen using ls -i
+File name can change, inode stays same
+
+
+10. Key Takeaways
+Use absolute paths for scripts and configs
+Use relative paths for portability
+Quotes are mandatory for spaces in names
+mkdir -p saves time for deep structures
+
+
+//git bash class code
+
+hp@LAPTOP-5I7LU01H MINGW64 ~
+$ mkdir test
+
+hp@LAPTOP-5I7LU01H MINGW64 ~
+$ cd test
+
+hp@LAPTOP-5I7LU01H MINGW64 ~/test
+$ mkdir test sub folder
+
+hp@LAPTOP-5I7LU01H MINGW64 ~/test
+$ mkdir test_sub_folder
+
+hp@LAPTOP-5I7LU01H MINGW64 ~/test
+$ mkdir "test sub folder"
+
+hp@LAPTOP-5I7LU01H MINGW64 ~/test
+$ mkdir testSubFolder
+mkdir: cannot create directory ‘testSubFolder’: File exists
+
+hp@LAPTOP-5I7LU01H MINGW64 ~/test
+$ mkdir testSubFolder
+
+hp@LAPTOP-5I7LU01H MINGW64 ~/test
+$ ls
+ folder/   sub/   test/  'test sub folder'/   testSubFolder/   test_sub_folder/
+
+hp@LAPTOP-5I7LU01H MINGW64 ~
+$ cd level1
+
+hp@LAPTOP-5I7LU01H MINGW64 ~/level1
+$ mkdir level2
+
+hp@LAPTOP-5I7LU01H MINGW64 ~/level1
+$ cd level2
+
+hp@LAPTOP-5I7LU01H MINGW64 ~/level1/level2
+$ mkdir level3
+
+hp@LAPTOP-5I7LU01H MINGW64 ~/level1/level2
+$ cd level3
+
+hp@LAPTOP-5I7LU01H MINGW64 ~/level1/level2/level3
+$ cd ..
+
+hp@LAPTOP-5I7LU01H MINGW64 ~/level1/level2
+$ cd ..
+
+hp@LAPTOP-5I7LU01H MINGW64 ~/level1
+$ cd ..
+
+hp@LAPTOP-5I7LU01H MINGW64 ~
+$ rm -ri level1
+rm: descend into directory 'level1'? y
+rm: descend into directory 'level1/level2'? y
+rm: remove directory 'level1/level2/level3'? y
+rm: remove directory 'level1/level2'? y
+rm: remove directory 'level1'? y
+
+hp@LAPTOP-5I7LU01H MINGW64 ~
+$ mkdir -p level1/level2/level3/level4
+
+hp@LAPTOP-5I7LU01H MINGW64 ~/level1
+$ cd -
+/c/Users/hp (curr -1 dir)
+
+hp@LAPTOP-5I7LU01H MINGW64 ~
+$ cd ~ (to root)
+
+hp@LAPTOP-5I7LU01H MINGW64 ~/test
+$ touch env
+
+hp@LAPTOP-5I7LU01H MINGW64 ~/test
+$ touch .env
+
+hp@LAPTOP-5I7LU01H MINGW64 ~/test
+$ ls -a
+ ./   ../   .env   env   folder/   sub/   test/  'test sub folder'/   testSubFolder/   test_sub_folder/
+
+hp@LAPTOP-5I7LU01H MINGW64 ~/test
+$ touch random1.txt
+
+hp@LAPTOP-5I7LU01H MINGW64 ~/test
+$ touch random2.txt
+
+hp@LAPTOP-5I7LU01H MINGW64 ~/test
+$ ls
+ env   folder/   random1.txt   random2.txt   sub/   test/  'test sub folder'/   testSubFolder/   test_sub_folder/
+
+hp@LAPTOP-5I7LU01H MINGW64 ~/test
+$ ls -i
+11258999068452526  env       4503599627400147  random1.txt  17451448556092571  sub/   42221246506638232 'test sub folder'/  57139420272281277  test_sub_folder/
+27866022694388780  folder/  47006321110714239  random2.txt  19984723346484650  test/  27584547717704983  testSubFolder/
+
+
+
+
+Hidden files are common for configs (.env)
