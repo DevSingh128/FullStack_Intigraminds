@@ -1,0 +1,190 @@
+# Linux / Git Bash / WSL – Practical Notes (Based on Your Commands)
+
+## 1. Creating Files and Redirecting Output
+
+```bash
+echo sample content > sample1.txt
+```
+**What it does:**
+* `echo` prints text
+* `>` redirects output to a file
+* If file exists → overwritten
+* If file does not exist → created
+
+
+
+---
+## 2. 
+```bash
+ls -l
+```
+**Sample Output:**
+```
+-rw-r--r-- 1 hp 197121 20 Jan  9 14:07 sample
+-rw-r--r-- 1 hp 197121 15 Jan  9 14:07 sample1.txt
+```
+
+### Breakdown of `-rw-r--r--`
+
+| Section | Meaning                        |
+| ------- | ------------------------------ |
+| `-`     | Regular file (`d` = directory) |
+| `rw-`   | Owner permissions              |
+| `r--`   | Group permissions              |
+| `r--`   | Others permissions             |
+
+---
+
+## 3. Why Use `rw-r--r--` ?
+
+This is the **default safe permission** for files:
+
+* **Owner (`rw-`)**: Can read & write
+* **Group (`r--`)**: Read-only
+* **Others (`r--`)**: Read-only
+
+### Usage / Advantage:
+
+* Prevents accidental modification by others
+* Allows sharing content safely
+* Very common for text files, configs
+
+
+## 4. Directory Creation and Navigation
+
+```bash
+mkdir level1
+```
+
+Creates a directory named `level1` in **current directory**
+
+
+## 5. `ls -l` for Directories
+
+```bash
+drwxr-xr-x 1 hp 197121 0 Jan 9 14:09 level1/
+```
+
+### `drwxr-xr-x` meaning
+
+| Part  | Meaning              |
+| ----- | -------------------- |
+| `d`   | Directory            |
+| `rwx` | Owner: full access   |
+| `r-x` | Group: read + enter  |
+| `r-x` | Others: read + enter |
+
+### Directory permissions meaning
+
+| Permission | Effect on Directory    |
+| ---------- | ---------------------- |
+| `r`        | List files             |
+| `w`        | Create/delete files    |
+| `x`        | Enter directory (`cd`) |
+
+---
+
+## 6. Windows CMD vs Linux Path Commands
+
+### ✅ WSL / Linux Shell
+
+## 7. Windows Drive Mounting in WSL
+
+```bash
+/mnt/c
+```
+
+| Path              | Meaning                  |
+| ----------------- | ------------------------ |
+| `/mnt/c`          | Windows C: drive         |
+| `/mnt/c/Users/hp` | Your Windows user folder |
+
+---
+
+## 8. `chmod` – Changing Permissions
+
+### Set read-only for everyone
+
+```bash
+chmod 444 sample1.txt
+```
+
+| Digit | Permission |
+| ----- | ---------- |
+| 4     | Read       |
+| 2     | Write      |
+| 1     | Execute    |
+
+`444` → `r-- r-- r--`
+
+---
+
+### After `chmod 444`
+
+```bash
+-r-xr-xr-x sample1.txt
+```
+
+**Why `x` appeared?**
+
+* WSL + Windows filesystem auto-maps permissions
+* Windows does not support Linux permission model fully
+
+---
+
+### Add write + execute to owner
+
+```bash
+chmod u+wx sample1.txt
+```
+
+| Symbol | Meaning      |
+| ------ | ------------ |
+| `u`    | User (owner) |
+| `+`    | Add          |
+| `w`    | Write        |
+| `x`    | Execute      |
+
+---
+
+### Remove all permissions
+
+```bash
+chmod 000 sample.txt
+```
+
+**Error:**
+
+```
+No such file or directory
+```
+
+**Reason:**
+
+* File name is `sample`, not `sample.txt`
+
+---
+
+## 9. Summary Table
+
+| Command      | Purpose               |
+| ------------ | --------------------- |
+| `ls -l`      | View permissions      |
+| `chmod 444`  | Read-only             |
+| `chmod u+wx` | Add owner permissions |
+| `cd ..`      | Go up one level       |
+| `/mnt/c`     | Access Windows drive  |
+
+---
+
+## 10. Key Takeaways (Exam / Interview)
+
+* Linux permissions = **Owner / Group / Others**
+* Files usually: `rw-r--r--`
+* Directories need `x` to enter
+* CMD ≠ Bash
+* WSL maps Windows filesystem imperfectly
+
+---
+
+If you want, I can convert this into **one-page revision notes**, **exam Q&A**, or **practice commands**.
