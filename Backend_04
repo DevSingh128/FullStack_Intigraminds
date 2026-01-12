@@ -1,0 +1,237 @@
+LINUX BASIC COMMANDS NOTES
+==========================
+
+1. touch — Create Empty Files
+-----------------------------
+Usage:
+touch file.txt
+
+Working:
+- Creates an empty file if it does not exist.
+- Updates timestamp if the file already exists.
+- Can create multiple files at once.
+
+Example:
+touch file1.txt file2.txt
+
+
+2. ls -l — Long Listing Format
+------------------------------
+Usage:
+ls -l
+
+Working:
+Displays:
+- File type
+- Permissions
+- Number of links
+- Owner and group
+- File size
+- Date and time
+- File/Directory name
+
+Example Output:
+-rwxrwxrwx 1 hp hp 0 Jan 12 05:12 file.txt
+
+Meaning:
+- First character: '-' file, 'd' directory
+- rwx: read, write, execute permissions
+- hp hp: owner and group
+- 0: file size in bytes
+
+
+3. chmod — Change Permissions
+-----------------------------
+Usage:
+chmod g+w folder
+
+Working:
+- Adds write permission to the group.
+- Permission structure:
+
+rwx rwx rwx
+ |   |   |
+user group others
+
+
+4. echo with Redirection (>)
+----------------------------
+Usage:
+echo "text" > file.txt
+
+Working:
+- Writes text into a file.
+- Overwrites existing content.
+- Creates file if it does not exist.
+
+Example:
+echo "sample content in file" > file.txt
+
+
+5. cat — Display File Content
+-----------------------------
+Usage:
+cat file.txt
+
+Working:
+- Displays content of a file on terminal.
+- Used for quick verification.
+
+
+6. grep — Search Text in Files
+------------------------------
+
+Basic Search:
+grep "content" file.txt
+
+Working:
+- Searches for exact word match.
+
+Search in Multiple Files:
+grep "content" *.txt
+
+
+Important grep Options:
+
+- Case-insensitive search:
+grep -i "content" *.txt
+
+- Show line numbers:
+grep -n "content" file.txt
+
+- Recursive search:
+grep -r "content" test/
+
+- Ignore binary files:
+grep -rI "content" test/
+
+
+7. grep -E — Extended Regular Expressions
+-----------------------------------------
+Usage:
+grep -rE "(truck|car|bike)" test/
+
+Working:
+- Matches any one of multiple patterns.
+- Uses OR (|) condition.
+- Searches recursively with -r.
+
+
+8. find — Locate Files
+----------------------
+Usage:
+find . -name "file.txt"
+
+Working:
+- Searches recursively from current directory.
+- Finds files or directories by name.
+
+
+
+9. find COMMAND — ALL THREE SYNTAX TYPES
+=======================================
+
+The `find` command has THREE commonly used syntaxes based on
+WHAT you want to search and HOW you want to filter results.
+
+
+------------------------------------------------------------
+TYPE 1: find <path> -name <filename>
+------------------------------------------------------------
+Usage:
+find <path> -name "<filename>"
+
+Working:
+- Searches for a file or directory by name.
+- Search starts from the given path.
+- Case-sensitive.
+
+Example:
+find . -name "file.txt"
+
+Meaning:
+- .  -> current directory
+- -name -> match exact name
+- "file.txt" -> file to search
+
+Output:
+./file.txt
+
+
+------------------------------------------------------------
+TYPE 2: find <path> -iname <filename>
+------------------------------------------------------------
+Usage:
+find <path> -iname "<filename>"
+
+Working:
+- Same as -name
+- Case-insensitive search.
+
+Example:
+find . -iname "File.TXT"
+
+Finds:
+file.txt
+FILE.txt
+File.txt
+
+
+------------------------------------------------------------
+TYPE 3: find <path> -type <f|d>
+------------------------------------------------------------
+Usage:
+find <path> -type f
+find <path> -type d
+
+Working:
+- Filters search by file type.
+
+Options:
+- f -> regular files
+- d -> directories
+
+Examples:
+find . -type f
+(Finds all files)
+
+find . -type d
+(Finds all directories)
+
+
+------------------------------------------------------------
+COMBINED USAGE (MOST IMPORTANT)
+------------------------------------------------------------
+
+Usage:
+find <path> -type f -name "<filename>"
+
+Example:
+find . -type f -name "*.txt"
+
+Working:
+- Searches only files
+- Filters files ending with .txt
+
+
+------------------------------------------------------------
+DIFFERENCE SUMMARY
+------------------------------------------------------------
+
+-name    -> exact filename (case-sensitive)
+-iname   -> filename (case-insensitive)
+-type f -> only files
+-type d -> only directories
+
+
+
+SUMMARY TABLE
+-------------
+touch     -> create empty files
+ls -l     -> view permissions and metadata
+chmod     -> modify permissions
+echo >    -> write/overwrite file content
+cat       -> display file content
+grep      -> search text
+grep -rE  -> recursive multi-pattern search
+find      -> locate files
