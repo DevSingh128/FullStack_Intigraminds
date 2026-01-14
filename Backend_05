@@ -1,0 +1,244 @@
+LINUX PERMISSIONS & USER MANAGEMENT – QUICK NOTES
+================================================
+
+Objective:
+----------
+1. Switch to root user
+2. Create a new user (student)
+3. Create a folder
+4. Remove permissions from the folder
+5. Attempt access and observe "Permission denied"
+
+------------------------------------------------
+1. Switch to Root User
+------------------------------------------------
+Command:
+sudo su -
+
+Explanation:
+- sudo : run command with superuser privileges
+- su - : switch to root with full root environment
+- Root prompt is indicated by #
+
+------------------------------------------------
+2. Create a New User: student
+------------------------------------------------
+Commands:
+useradd student
+passwd student
+
+Explanation:
+- useradd : creates a new user account
+- passwd  : sets login password for the user
+
+Verify user:
+id student
+
+------------------------------------------------
+3. Create a Folder (as root)
+------------------------------------------------
+Command:
+mkdir /root/secure_folder
+
+Explanation:
+- Folder is created inside /root
+- /root is restricted for normal users by default
+
+------------------------------------------------
+4. Change Ownership to student
+------------------------------------------------
+Command:
+chown student:student /root/secure_folder
+
+Explanation:
+- student becomes owner and group owner of the folder
+
+------------------------------------------------
+5. Remove All Permissions
+------------------------------------------------
+Command:
+chmod 000 /root/secure_folder
+
+Explanation:
+- 000 means:
+  r = 0 (no read)
+  w = 0 (no write)
+  x = 0 (no execute)
+- No one can access the directory
+
+Check permissions:
+ls -ld /root/secure_folder
+
+Expected Output:
+d--------- 2 student student secure_folder
+
+------------------------------------------------
+6. Switch to student User
+------------------------------------------------
+Command:
+su - student
+
+------------------------------------------------
+7. Try to Access Folder (Permission Denied)
+------------------------------------------------
+Command:
+ls /root/secure_folder
+
+Output:
+ls: cannot open directory '/root/secure_folder': Permission denied
+
+Reason:
+- No execute (x) permission → cannot enter directory
+- No read (r) permission → cannot list contents
+
+------------------------------------------------
+IMPORTANT PERMISSION CONCEPTS
+------------------------------------------------
+Permission | Meaning (Directory)
+-----------|-------------------
+r          | list files
+w          | create/delete files
+x          | enter directory
+
+NOTE:
+- Execute (x) permission is mandatory to access a directory
+- Ownership does NOT override permissions
+
+------------------------------------------------
+8. Restore Permissions (Optional)
+------------------------------------------------
+Command:
+sudo chmod 700 /root/secure_folder
+
+Explanation:
+- Owner gets full access back
+
+------------------------------------------------
+9. echo -e
+------------------------------------------------
+Purpose:
+--------
+The `echo` command prints text to standard output.
+The `-e` option enables interpretation of escape sequences.
+
+Syntax:
+-------
+echo -e "string"
+
+Functionality:
+--------------
+- Allows special characters like newline and tab
+- Without -e, escape characters are printed as plain text
+
+Common Escape Sequences:
+------------------------
+\n  -> New line
+\t  -> Horizontal tab
+\b  -> Backspace
+\\  -> Backslash
+\r  -> Carriage return
+
+Examples:
+---------
+echo -e "Hello\nWorld"
+
+Output:
+Hello
+World
+
+echo -e "Name\tAge"
+
+Output:
+Name    Age
+
+Without -e:
+-----------
+echo "Hello\nWorld"
+
+Output:
+Hello\nWorld
+
+Conclusion:
+-----------
+The -e option is required to activate escape characters in echo.
+
+------------------------------------------------
+10. uniq -c
+------------------------------------------------
+Purpose:
+--------
+The `uniq` command filters adjacent duplicate lines.
+The `-c` option counts the number of occurrences of each line.
+
+Syntax:
+-------
+uniq -c file
+command | uniq -c
+
+Important Rule:
+---------------
+- uniq works ONLY on consecutive duplicate lines
+- Input must usually be sorted before using uniq
+
+Example (Without sort):
+-----------------------
+echo -e "a\nb\na\na\nb" | uniq -c
+
+Output:
+1 a
+1 b
+2 a
+1 b
+
+Reason:
+-------
+Duplicates are not adjacent.
+
+Correct Usage (With sort):
+--------------------------
+echo -e "a\nb\na\na\nb" | sort | uniq -c
+
+Output:
+3 a
+2 b
+
+------------------------------------------------
+11. Combined Usage: echo -e and uniq -c
+------------------------------------------------
+echo -e "apple\napple\nbanana\nbanana\nbanana" | uniq -c
+
+Output:
+2 apple
+3 banana
+
+------------------------------------------------
+12. ls>filename.txt , sleep seconds , bg
+------------------------------------------------
+ls > filename.txt (add file to current directory directly)
+sleep seconds --> sleep 10
+bg - any background work in device 
+
+
+Shell scripting is the process of writing a series of commands in a text file for a computer's shell  
+(command-line interpreter) to execute automatically. Instead of a user manually typing commands one by one into a terminal, 
+the script runs the entire sequence, making it a powerful tool for task automation in Unix-like operating systems (Linux, macOS, etc
+
+------------------------------------------------
+Summary Table
+------------------------------------------------
+Command     Function
+-------     ------------------------------------
+echo        Prints text
+echo -e     Prints text with escape sequences
+uniq        Removes adjacent duplicate lines
+uniq -c     Counts adjacent duplicate lines
+sort        Groups duplicates for uniq
+
+
+
+------------------------------------------------
+Exam One-Line Summary
+------------------------------------------------
+- echo -e enables interpretation of escape characters
+- uniq -c counts consecutive duplicate lines (usually after sort)
+
