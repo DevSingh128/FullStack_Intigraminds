@@ -1,0 +1,136 @@
+SHELL SCRIPTING NOTES (BASH)
+
+--------------------------------------------------
+1. FOR LOOP OVER FILES (*.sh)
+--------------------------------------------------
+Command:
+for f in *.sh; do
+    echo currently processing $f
+done
+
+Explanation:
+- *.sh expands to all shell script files in the current directory.
+- Variable 'f' holds one filename at a time.
+- Loop runs once per matching file.
+- echo prints the name of the file being processed.
+
+Use Case:
+- Batch processing multiple shell scripts.
+- Logging or validating script files.
+
+--------------------------------------------------
+2. FOR LOOP WITH RANGE AND STEP
+--------------------------------------------------
+Command:
+for i in {0..100..2}; do
+    echo number $i
+done
+
+Explanation:
+- {0..100..2} means:
+  start = 0
+  end = 100
+  step = 2
+- Prints even numbers from 0 to 100.
+- Variable 'i' stores the current number.
+
+Use Case:
+- Iteration with fixed intervals.
+- Generating sequences.
+
+--------------------------------------------------
+3. IF CONDITION: FILE EXISTENCE CHECK
+--------------------------------------------------
+Command:
+if [ -f conditions.sh ]; then
+    echo file exist
+else
+    echo file not exist
+fi
+
+Explanation:
+- -f checks if a regular file exists.
+- Square brackets [ ] are test command syntax.
+- If condition is true, 'then' block runs.
+- Otherwise, 'else' block runs.
+
+Use Case:
+- Validation before file operations.
+- Preventing runtime errors.
+
+--------------------------------------------------
+4. IF-ELIF-ELSE WITH VARIABLES
+--------------------------------------------------
+Script:
+age=18
+country="india"
+
+if [ $age -ge 18 ] && [ $country == "india" ]; then
+    echo You can vote
+elif [ $age -eq 17 ]; then
+    echo you can apply to vote
+else
+    echo You cannot vote
+fi
+
+Explanation:
+- Variables are assigned without spaces.
+- -ge : greater than or equal to
+- -eq : equal to
+- &&  : logical AND
+- Condition checks both age and country.
+
+Use Case:
+- Decision making based on multiple conditions.
+
+--------------------------------------------------
+5. SIMPLE ECHO COMMANDS
+--------------------------------------------------
+Commands:
+echo My name is Sample name
+echo his age is 24
+echo sample 1234
+echo password 12345
+
+Explanation:
+- echo prints text to the terminal.
+- Used for output, logging, or debugging.
+
+--------------------------------------------------
+6. USER INPUT USING READ
+--------------------------------------------------
+Commands:
+read -p "enter your name: " username
+read -sp "enter your password: " password
+echo user name is $username and password is $password
+
+Explanation:
+- read takes input from the user.
+- -p displays a prompt message.
+- -s hides input (useful for passwords).
+- Stored values are accessed using $variable.
+
+Use Case:
+- Interactive scripts.
+- Secure password input.
+
+--------------------------------------------------
+7. GREP COMMAND (COMMENTED)
+--------------------------------------------------
+Commands:
+# grep -in "text" file.txt
+# grep -ni "text" file.txt
+
+Explanation:
+- grep searches for text in files.
+- -i : ignore case
+- -n : show line numbers
+- Both commands are functionally identical.
+
+Use Case:
+- Searching logs or files.
+- Debugging and analysis.
+
+--------------------------------------------------
+END OF NOTES
+--------------------------------------------------
