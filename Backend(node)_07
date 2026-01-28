@@ -1,0 +1,70 @@
+//non blocking code using event loop
+console.log("start js");
+setTimeout(()=>{
+    console.log("second");
+},2000)
+console.log("third");
+
+//blocking code
+console.log("start js");
+for(let i=0;i<100;i++){
+    
+}
+console.log("third");
+
+------------------------------------------------------------------------------------------
+Aspect	       |  Blocking/Synchronous                  |  Non-Blocking/Asynchronous     |
+------------------------------------------------------------------------------------------
+​Execution	     |  Waits for completion	Continues;      |  callback/Promise later        |
+Thread Impact	 |  Blocks main thread	                  |  Frees thread via event loop   |
+Use Case	     |  Simple scripts, quick ops	            |  Servers, APIs, real-time apps |
+Performance	   |  Can cause delays/scalability issues	  |  Efficient for concurrent I/O  |
+------------------------------------------------------------------------------------------
+
+
+Global Scope: Variables declared outside of any function or block have global scope. 
+They are accessible from anywhere in the JavaScript program, including inside functions and blocks.
+
+const globalVar = "I am global";
+function logGlobal() {
+  console.log(globalVar);
+}
+logGlobal();
+console.log(globalVar);
+
+
+```````````````````````````````````````````````````````````````````````````````````````````````````````````````````
+
+Function (Local) Scope: Variables declared within a function are only accessible within that specific function.
+They are created when the function starts and deleted when it finishes.
+
+function calculateTotal() {
+  const price = 100; 
+  console.log(price); 
+}
+calculateTotal();
+// console.log(price); // ReferenceError: price is not defined
+
+
+`````````````````````````````````````````````````````````````````````````````````````````````````````````````````````
+
+Block Scope: Introduced in ES6, variables declared with let or const inside a set of curly braces {}
+(e.g., in if statements, for loops, or standalone blocks) are only accessible within that block. 
+Variables declared with var do not have block scope and "leak" into the surrounding function or global scope.
+if (true) {
+  let blockVar = "I am block-scoped";
+  var functionVar = "I escape the block";
+  console.log(blockVar); // Accessible
+}
+// console.log(blockVar); // ReferenceError: blockVar is not defined
+console.log(functionVar); // Accessible (due to var's function/global scope)
+
+
+```````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````````
+Lexical Scope (Scope Chain): Inner functions can access variables defined in their outer (enclosing) functions' scopes.
+JavaScript looks for a variable starting in the current scope and moving outward through parent scopes until it reaches the global scope. 
+Key Declaration Keywords
+Keyword 	Scope Type(s)	Hoisting Behavior	Redeclaration/Reassignment
+var	Function/Global	Hoisted to the top of its scope	Can be redeclared and reassigned
+let	Block/Function/Global	Not hoisted (Temporal Dead Zone)	Can be reassigned, but not redeclared
+const	Block/Function/Global	Not hoisted (Temporal Dead Zone)	Cannot be reassigned or redeclared (constant)
