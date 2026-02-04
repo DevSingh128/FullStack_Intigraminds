@@ -68,3 +68,6 @@ Keyword 	Scope Type(s)	Hoisting Behavior	Redeclaration/Reassignment
 var	Function/Global	Hoisted to the top of its scope	Can be redeclared and reassigned
 let	Block/Function/Global	Not hoisted (Temporal Dead Zone)	Can be reassigned, but not redeclared
 const	Block/Function/Global	Not hoisted (Temporal Dead Zone)	Cannot be reassigned or redeclared (constant)
+
+
+skipping next git/gitbash 2-4 lecture of backend due ti availability on youtube 
